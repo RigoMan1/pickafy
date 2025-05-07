@@ -1,0 +1,60 @@
+body {
+  /* font-family: 'Open Sans', sans-serif; */
+  font-family: 'Poppins', sans-serif;
+}
+
+.v-heading-1 {
+  /* @apply text-4xl font-bold tracking-tight sm:text-5xl; */
+  @apply mt-2 text-4xl font-semibold md:text-6xl  mx-auto;
+}
+
+.v-heading-2 {
+  /* @apply text-3xl font-bold tracking-tight sm:text-4xl; */
+  @apply text-4xl font-bold tracking-tight sm:text-5xl;
+}
+
+.v-heading-3 {
+  @apply text-2xl font-bold tracking-tight;
+}
+
+.v-heading-4 {
+  @apply text-lg font-medium;
+}
+
+.v-heading-5 {
+  @apply text-lg font-bold tracking-tight; /* unrevised */
+}
+
+.v-heading-6 {
+  @apply text-base font-bold tracking-tight; /* unrevised */
+}
+
+/* --- */
+
+.v-body-1 {
+  @apply text-lg leading-8;
+}
+
+.v-body-2 {
+  @apply text-base;
+}
+
+.v-subtitle-1 {
+  @apply text-xl font-bold tracking-tight; /* unrevised */
+}
+
+.v-subtitle-2 {
+  @apply text-base font-bold tracking-tight; /* unrevised */
+}
+
+.v-caption {
+  @apply text-sm; /* unrevised */
+}
+
+.v-overline {
+  @apply text-xs font-bold tracking-widest uppercase; /* unrevised */
+}
+
+.v-blockquote {
+  @apply text-lg font-medium; /* unrevised */
+}

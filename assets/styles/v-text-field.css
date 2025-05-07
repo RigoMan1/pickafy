@@ -1,0 +1,26 @@
+.v-input-frame {
+  @apply items-center;
+  --v-icon-size: 20px;
+}
+
+.v-text-field {
+  .v-field {
+    @apply flex items-center rounded-lg;
+    @apply focus-within:border-blue-400;
+    @apply w-full bg-transparent border rounded-md dark:border-gray-700;
+
+    &__prepend-inner {
+      /* @apply ml-2; */
+    }
+
+    &__append-inner {
+      /* @apply mr-2; */
+    }
+
+    input {
+      @apply bg-transparent px-2 py-2.5 focus:outline-none;
+      @apply mx-2;
+      /* @apply bg-fuchsia-500/20; */
+    }
+  }
+}
