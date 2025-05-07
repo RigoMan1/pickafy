@@ -10,6 +10,12 @@ export default defineNuxtConfig({
 		'@nuxt/fonts',
 		'@nuxt/image',
 		'@nuxt/scripts',
+		'@nuxtjs/tailwindcss',
 	],
 	css: ['~/assets/styles/main.css'],
+	tailwindcss: {
+		exposeConfig: true,
+		configPath: './tailwind.config.ts',
+		cssPath: ['~/assets/css/tailwind.css', { injectPosition: 'last' }],
+	},
 });

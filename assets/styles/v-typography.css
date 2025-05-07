@@ -1,11 +1,10 @@
 body {
-  /* font-family: 'Open Sans', sans-serif; */
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .v-heading-1 {
   /* @apply text-4xl font-bold tracking-tight sm:text-5xl; */
-  @apply mt-2 text-4xl font-semibold md:text-6xl  mx-auto;
+  @apply mx-auto mt-2 text-4xl font-semibold md:text-6xl;
 }
 
 .v-heading-2 {
@@ -52,7 +51,7 @@ body {
 }
 
 .v-overline {
-  @apply text-xs font-bold tracking-widest uppercase; /* unrevised */
+  @apply text-xs font-bold uppercase tracking-widest; /* unrevised */
 }
 
 .v-blockquote {
