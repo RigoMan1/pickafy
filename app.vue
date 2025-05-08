@@ -7,7 +7,7 @@
         class="ml-3 text-lg font-medium"
         to="/"
       >
-        <span class="text-zinc-200">My Nuxt 3 App</span>
+        <span class="text-zinc-200">🤷 Decisions</span>
       </nuxt-link>
     </v-app-bar>
 
