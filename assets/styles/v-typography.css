@@ -39,11 +39,11 @@ body {
 }
 
 .v-subtitle-1 {
-  @apply text-xl font-bold tracking-tight; /* unrevised */
+  @apply text-xl font-semibold; /* unrevised */
 }
 
 .v-subtitle-2 {
-  @apply text-base font-bold tracking-tight; /* unrevised */
+  @apply text-base font-semibold; /* unrevised */
 }
 
 .v-caption {

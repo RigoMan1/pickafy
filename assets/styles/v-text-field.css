@@ -7,7 +7,7 @@
   .v-field {
     @apply flex items-center rounded-lg;
     @apply focus-within:border-blue-400;
-    @apply w-full bg-transparent border rounded-md dark:border-gray-700;
+    @apply w-full rounded-md border bg-gray-700/20 dark:border-gray-700;
 
     &__prepend-inner {
       /* @apply ml-2; */

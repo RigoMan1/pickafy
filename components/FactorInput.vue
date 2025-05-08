@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  type: 'scale-rating' | 'boolean' | 'percentage' | 'cost' | 'text';
+  type: FactorType;
 }>();
 
 const model = defineModel<any>();
@@ -10,22 +10,19 @@ const model = defineModel<any>();
   <div>
     <!-- Scale rating: 0–10 -->
 
-    <range-slider
+    <input-rating
       v-if="type === 'scale-rating'"
       v-model="model"
       :min="0"
       :max="10"
-      step="1"
     />
 
     <!-- Percentage: 0–100 -->
-    <input
+    <range-slider
       v-else-if="type === 'percentage'"
       v-model.number="model"
-      type="range"
       :min="0"
       :max="100"
-      :step="1"
       class="w-full"
     />
 

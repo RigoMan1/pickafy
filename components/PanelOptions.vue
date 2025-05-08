@@ -9,7 +9,7 @@ const store = useMainStore();
 
     <!-- choices list -->
     <v-group
-      v-model="$state.activeChoice"
+      v-model="$state.activeChoiceId"
       column
       class="flex flex-col gap-4"
       mandatory

@@ -1,10 +1,4 @@
-type FactorType =
-  | 'scale-rating'
-  | 'boolean'
-  | 'percentage'
-  | 'cost'
-  | 'text'
-  | 'star-rating';
+type FactorType = 'scale-rating' | 'boolean' | 'percentage' | 'cost' | 'text';
 
 interface Criterion {
   title: string;
