@@ -44,14 +44,21 @@ const slide = ref('criteria');
           class="flex items-center justify-center"
           value="criteria"
         >
-          <section-criteria class="p-20" />
+          <section-criteria
+            class="p-20"
+            @next="slide = 'options'"
+          />
         </v-slide>
 
         <v-slide
           class="flex items-center justify-center"
           value="options"
         >
-          <section-options class="p-20" />
+          <section-options
+            class="p-20"
+            @prev="slide = 'criteria'"
+            @next="slide = 'results'"
+          />
         </v-slide>
 
         <v-slide

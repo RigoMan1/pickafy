@@ -18,7 +18,7 @@
     }
 
     input {
-      @apply bg-transparent px-2 py-2.5 focus:outline-none;
+      @apply bg-transparent px-2 py-1.5 focus:outline-none;
       @apply mx-2;
       /* @apply bg-fuchsia-500/20; */
     }
