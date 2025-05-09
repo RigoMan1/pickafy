@@ -2,9 +2,7 @@
 
 <template>
   <div>
-    <v-heading variant="subtitle-2">
-      Side
-    </v-heading>
+    <v-heading variant="subtitle-2">Templates (Coming Soon)</v-heading>
   </div>
 </template>
 

@@ -24,3 +24,19 @@
     }
   }
 }
+
+.v-select {
+  @apply gap-y-1;
+
+  &__content {
+    @apply space-y-4 rounded-lg bg-zinc-800 shadow-lg;
+  }
+
+  &__list {
+    @apply space-y-1;
+  }
+
+  &__option {
+    @apply cursor-pointer p-2 hover:bg-zinc-700;
+  }
+}

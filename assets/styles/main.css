@@ -3,6 +3,10 @@
 @import './v-text-field.css';
 @import './v-typography.css';
 
+:root {
+  --v-divider-opacity: 0.1 !important;
+}
+
 html {
   color-scheme: light dark;
   background-color: theme('colors.surface.950');

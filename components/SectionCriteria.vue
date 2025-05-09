@@ -1,118 +1,135 @@
 <script setup lang="ts">
-/* ---------- sample data ---------- */
-const criteria = ref<Criterion[]>([
-  {
-    title: 'Pricing',
-    description: 'Affordability and value for features offered.',
-    icon: 'i-mdi-currency-usd',
-    type: 'cost',
-    weight: 4,
-  },
-  {
-    title: 'Ease of Use',
-    description: 'How intuitive and beginner-friendly the builder is.',
-    icon: 'i-mdi-hand-pointing-up',
-    type: 'scale-rating',
-    weight: 5,
-  },
-  {
-    title: 'Design & Templates',
-    description: 'Quality and variety of available themes and customization.',
-    icon: 'i-mdi-palette',
-    type: 'scale-rating',
-    weight: 4,
-  },
-  {
-    title: 'Features & Flexibility',
-    description: 'Breadth of tools, plugins, and customization options.',
-    icon: 'i-mdi-cog',
-    type: 'scale-rating',
-    weight: 5,
-  },
-  {
-    title: 'E-Commerce Support',
-    description: 'Support for online selling and commerce features.',
-    icon: 'i-mdi-cart',
-    type: 'boolean',
-    weight: 4,
-  },
-  {
-    title: 'Support & Resources',
-    description: 'Availability of help docs, tutorials, and customer support.',
-    icon: 'i-mdi-lifebuoy',
-    type: 'scale-rating',
-    weight: 3,
-  },
-]);
+const { $state, removeChoice } = useMainStore();
+const store = useMainStore();
 
-function addCustomCriterion() {
-  criteria.value.push({
-    title: 'New criterion',
-    description: '',
-    icon: 'i-mdi-pencil',
-    type: 'scale-rating',
-    weight: 5,
-  });
+function addCriteria(criterion: Criterion) {
+  $state.criteria.push(criterion);
 }
 
-const { $state } = useMainStore();
-// todo: on add new criterion, bring up dialog with text-field
+function removeCriteria(criterion: Criterion) {
+  $state.criteria = $state.criteria.filter((c) => c.title !== criterion.title);
+}
 
 const emit = defineEmits(['next']);
+
+const criterionDialog = ref(false);
 </script>
 
 <template>
-  <div class="space-y-6">
-    <v-heading variant="heading-3">Choose Your Criteria</v-heading>
+  <div>
+    <!-- options creation -->
+
+    <header-section title="What are you comparing?">
+      Start by listing the items you're deciding between. These could be products,
+      services, ideas, or anything you're comparing.
+    </header-section>
+
+    <div class="mt-4 grid grid-cols-5 gap-4">
+      <div
+        v-for="c in $state.choices"
+        :key="c.id"
+      >
+        <div class="flex items-center gap-2">
+          <div
+            class="flex w-full items-center justify-between rounded-lg bg-surface-100/10 px-3 py-1.5"
+          >
+            <span>{{ c.label }}</span>
+
+            <v-button
+              icon="i-mdi-delete"
+              variant="text"
+              color="danger"
+              size="sm"
+              @click.stop="removeChoice(c.id)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <add-option-dialog />
+    </div>
+
+    <v-divider class="my-8" />
+
+    <!-- criteria creation -->
+
+    <header-section title="What are your criteria?">
+      What matters most when comparing your options? Add 2–5 criteria to help evaluate
+      them.
+    </header-section>
 
     <!-- grid of cards -->
 
-    <v-group
-      v-model="$state.selectedCriteria"
-      multiple
-      class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-    >
-      <v-group-item
-        v-for="criterion in criteria"
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        v-for="(criterion, criterionIndex) in $state.criteria"
         :key="criterion.title"
-        v-slot="{ toggle, isSelected }"
-        :value="criterion"
+        class="hover:ring-primary flex items-start space-x-4 rounded-lg p-4 text-left shadow-sm ring-1
+          ring-surface-400/40 transition focus:outline-none"
       >
-        <button
-          class="hover:ring-primary flex items-start space-x-4 rounded-lg p-4 text-left shadow-sm ring-1
-            ring-surface-400/40 transition focus:outline-none"
-          :class="{ 'bg-primary-500/20': isSelected }"
-          @click="toggle"
-        >
-          <v-icon
-            :name="criterion.icon"
-            class="text-primary pt-1 text-xl"
-          />
+        <div class="flex-1">
+          <div>
+            <div class="flex items-center space-x-2">
+              <v-icon
+                :name="criterion.icon"
+                class="text-primary pt-1 text-xl"
+              />
 
-          <div class="flex-1">
-            <h3 class="font-semibold">
-              {{ criterion.title }}
-            </h3>
+              <h3 class="font-semibold">
+                {{ criterion.title }}
+              </h3>
+            </div>
             <p class="mt-1 text-sm text-gray-600">{{ criterion.description }}</p>
             <p class="mt-1 text-xs italic text-gray-400">Type: {{ criterion.type }}</p>
           </div>
-        </button>
-      </v-group-item>
-    </v-group>
+
+          <v-divider class="my-2" />
+
+          <div>
+            <span class="inline-block text-sm text-gray-100">How important is this?</span>
+            <range-slider
+              v-model="$state.criteria[criterionIndex].weight"
+              min="0"
+              max="10"
+              label="Weight"
+              class="mt-1 !bg-surface-800"
+            />
+          </div>
+        </div>
+
+        <v-divider
+          vertical
+          class="!my-0"
+        />
+
+        <v-button
+          icon="i-mdi-delete"
+          variant="text"
+          color="danger"
+          class="!m-0"
+          @click.stop="removeCriteria(criterion)"
+        />
+      </div>
+    </div>
 
     <!-- actions -->
-    <div class="flex flex-wrap justify-between gap-3">
+    <div class="mt-8 flex flex-wrap justify-between gap-3">
       <v-button
-        color="primary"
+        id="dialog-add-criterion"
         variant="outlined"
-        label="Add custom criterion"
         prepend-icon="i-mdi-plus"
-        @click="addCustomCriterion"
+      >
+        Add criterion
+      </v-button>
+
+      <add-criterion-dialog
+        v-model="criterionDialog"
+        @add-criterion="addCriteria"
       />
 
       <v-button
         color="primary"
-        :disabled="$state.selectedCriteria.length === 0"
+        :disabled="store.selectedCriteria.length === 0"
         @click="emit('next')"
       >
         Continue

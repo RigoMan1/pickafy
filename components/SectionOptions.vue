@@ -18,23 +18,24 @@ onMounted(() => {
 
 <template>
   <div class="flex-1 overflow-auto p-6">
+    <header-section class="mb-4">
+      <template #title>
+        Evaluate
+        <span class="text-blue-600">{{ activeChoice?.label }}</span>
+        for each category
+      </template>
+
+      Rate each option based on your chosen criteria.
+    </header-section>
+
     <div
       v-if="!activeChoice"
       class="py-12 text-center text-gray-500"
     >
-      Select a choice to start rating.
+      No options available. Please add options to evaluate.
     </div>
 
     <template v-else>
-      <v-heading
-        variant="subtitle-1"
-        class="mb-6"
-      >
-        Evaluate
-        <span class="text-blue-600">{{ activeChoice.label }}</span>
-        for each category
-      </v-heading>
-
       <div class="grid grid-cols-2 gap-4">
         <div
           v-for="cri in store.selectedCriteria"

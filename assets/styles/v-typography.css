@@ -31,11 +31,11 @@ body {
 /* --- */
 
 .v-body-1 {
-  @apply text-lg leading-8;
+  @apply text-base;
 }
 
 .v-body-2 {
-  @apply text-base;
+  @apply text-sm;
 }
 
 .v-subtitle-1 {

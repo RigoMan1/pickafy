@@ -11,7 +11,7 @@ const slide = ref('criteria');
         class="items-center space-x-3"
       >
         <v-group-item
-          v-for="(item, index) in ['criteria', 'options', 'results']"
+          v-for="(item, index) in ['criteria', 'evaluate', 'results']"
           :key="index"
           v-slot="{ isSelected }"
           :value="item"
@@ -32,7 +32,7 @@ const slide = ref('criteria');
       <!-- side panel -->
       <div class="flex w-1/3 items-center justify-center rounded-lg bg-surface-500/20">
         <panel-templates v-if="slide === 'criteria'" />
-        <panel-options v-if="slide === 'options'" />
+        <panel-options v-if="slide === 'evaluate'" />
       </div>
       <!-- main -->
       <v-slides
@@ -45,17 +45,17 @@ const slide = ref('criteria');
           value="criteria"
         >
           <section-criteria
-            class="p-20"
-            @next="slide = 'options'"
+            class="w-full p-8"
+            @next="slide = 'evaluate'"
           />
         </v-slide>
 
         <v-slide
           class="flex items-center justify-center"
-          value="options"
+          value="evaluate"
         >
           <section-options
-            class="p-20"
+            class="w-full p-8"
             @prev="slide = 'criteria'"
             @next="slide = 'results'"
           />
@@ -65,7 +65,7 @@ const slide = ref('criteria');
           class="flex items-center justify-center"
           value="results"
         >
-          <section-results class="p-20" />
+          <section-results class="w-full p-8" />
         </v-slide>
       </v-slides>
     </div>

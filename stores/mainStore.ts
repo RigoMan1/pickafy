@@ -1,32 +1,5 @@
 import { defineStore } from 'pinia';
-
-const sampleOptions: Choice[] = [
-  {
-    id: 'wix',
-    label: 'Wix',
-    values: {},
-  },
-  {
-    id: 'squarespace',
-    label: 'Squarespace',
-    values: {},
-  },
-  {
-    id: 'shopify',
-    label: 'Shopify',
-    values: {},
-  },
-  {
-    id: 'wordpress',
-    label: 'WordPress',
-    values: {},
-  },
-  {
-    id: 'webflow',
-    label: 'Webflow',
-    values: {},
-  },
-];
+import { sampleCriteria, sampleOptions } from '~/utils/index';
 
 export interface Choice {
   id: string;
@@ -36,20 +9,35 @@ export interface Choice {
 
 export const useMainStore = defineStore('main-store', {
   state: () => ({
-    selectedCriteria: [] as Criterion[],
-    choices: sampleOptions.map((o) => ({ ...o, values: {} })) as Choice[],
+    // criteria: sampleCriteria as Criterion[],
+    // choices: sampleOptions as Choice[],'
+    criteria: [] as Criterion[],
+    choices: [] as Choice[],
     activeChoiceId: '' as string, // keep only the id
     results: [] as Array<Choice & { score: number }>,
   }),
+
+  getters: {
+    selectedCriteria: (state) => {
+      return state.criteria.filter((c) => c.weight > 0);
+    },
+  },
 
   actions: {
     setActiveChoiceId(id: string) {
       this.activeChoiceId = id;
     },
-    addChoice(label = `Choice ${this.choices.length + 1}`) {
+    addChoice(label: string) {
       const id = crypto.randomUUID();
       this.choices.push({ id, label, values: {} });
       if (!this.activeChoiceId) this.setActiveChoiceId(id);
+    },
+    removeChoice(id: string) {
+      this.choices = this.choices.filter((c) => c.id !== id);
+      if (this.activeChoiceId === id) {
+        const nextChoice = this.choices[0];
+        this.setActiveChoiceId(nextChoice ? nextChoice.id : '');
+      }
     },
 
     /** write a single cell */
