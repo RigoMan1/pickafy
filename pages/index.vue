@@ -30,7 +30,7 @@ const slide = ref('criteria');
 
     <div class="mt-12 flex h-full space-x-4">
       <!-- side panel -->
-      <div class="flex w-1/3 items-center justify-center rounded-lg bg-surface-500/20">
+      <div class="w-1/3 rounded-lg bg-surface-500/20 p-8">
         <panel-templates v-if="slide === 'criteria'" />
         <panel-options v-if="slide === 'evaluate'" />
       </div>

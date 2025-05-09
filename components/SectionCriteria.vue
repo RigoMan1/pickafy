@@ -54,8 +54,7 @@ const criterionDialog = ref(false);
     <!-- criteria creation -->
 
     <header-section title="What are your criteria?">
-      What matters most when comparing your options? Add 2–5 criteria to help evaluate
-      them.
+      What matters most when comparing your options?
     </header-section>
 
     <!-- grid of cards -->
@@ -91,7 +90,7 @@ const criterionDialog = ref(false);
               v-model="$state.criteria[criterionIndex].weight"
               min="0"
               max="10"
-              label="Weight"
+              label="Priority"
               class="mt-1 !bg-surface-800"
             />
           </div>

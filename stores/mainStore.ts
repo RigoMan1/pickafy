@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { sampleCriteria, sampleOptions } from '~/utils/index';
 
 export interface Choice {
   id: string;
@@ -9,8 +8,6 @@ export interface Choice {
 
 export const useMainStore = defineStore('main-store', {
   state: () => ({
-    // criteria: sampleCriteria as Criterion[],
-    // choices: sampleOptions as Choice[],'
     criteria: [] as Criterion[],
     choices: [] as Choice[],
     activeChoiceId: '' as string, // keep only the id
@@ -24,6 +21,18 @@ export const useMainStore = defineStore('main-store', {
   },
 
   actions: {
+    loadTemplate(template: TemplateData) {
+      // deep-clone to avoid reactive reference issues
+      this.criteria = template.criteria.map((c) => ({ ...c }));
+      this.choices = template.choices.map((o) => ({ ...o }));
+
+      // pick first choice as active (or clear if none)
+      this.activeChoiceId = this.choices[0]?.id ?? '';
+
+      // immediately refresh scores
+      // this.computeScores();
+    },
+
     setActiveChoiceId(id: string) {
       this.activeChoiceId = id;
     },

@@ -8,3 +8,10 @@ interface Criterion {
   type: FactorType;
   weight: number;
 }
+
+interface TemplateData {
+  id: string;
+  name: string;
+  criteria: Criterion[];
+  choices: Choice[];
+}
