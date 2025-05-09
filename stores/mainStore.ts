@@ -53,8 +53,9 @@ export const useMainStore = defineStore('main-store', {
       this.selectedCriteria
         .filter((c) => c.type === 'cost')
         .forEach((cri) => {
-          const vals = this.choices.map((c) => Number(c.values[cri.title] ?? 0));
-          costExtremes[cri.title] = { min: Math.min(...vals), max: Math.max(...vals) };
+          const vals = this.choices.map((c) => Number(c.values[cri.id] ?? 0));
+          // costExtremes[cri.title] = { min: Math.min(...vals), max: Math.max(...vals) };
+          costExtremes[cri.id] = { min: Math.min(...vals), max: Math.max(...vals) };
         });
 
       const totalWeights = this.selectedCriteria.reduce((s, c) => s + c.weight, 0);
@@ -63,7 +64,7 @@ export const useMainStore = defineStore('main-store', {
         .map((ch) => {
           let total = 0;
           this.selectedCriteria.forEach((cri) => {
-            const raw = ch.values?.[cri.title];
+            const raw = ch.values?.[cri.id];
             let norm = 0;
 
             switch (cri.type) {
@@ -77,7 +78,7 @@ export const useMainStore = defineStore('main-store', {
                 norm = Math.min(Math.max(Number(raw) || 0, 0), 100);
                 break;
               case 'cost':
-                const { min, max } = costExtremes[cri.title];
+                const { min, max } = costExtremes[cri.id];
                 norm = max === min ? 100 : ((max - Number(raw || 0)) / (max - min)) * 100;
                 break;
               case 'text':

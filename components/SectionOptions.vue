@@ -39,7 +39,7 @@ onMounted(() => {
       <div class="grid grid-cols-2 gap-4">
         <div
           v-for="cri in store.selectedCriteria"
-          :key="cri.title"
+          :key="cri.id"
           class="flex items-start gap-4 rounded-lg border border-gray-700/50 p-4 shadow-sm"
         >
           <v-icon
@@ -57,9 +57,9 @@ onMounted(() => {
 
             <factor-input
               :type="cri.type"
-              :model-value="activeChoice?.values?.[cri.title]"
+              :model-value="activeChoice?.values?.[cri.id]"
               @update:model-value="
-                (val) => store.setValue(cri.title, store.activeChoiceId, val)
+                (val) => store.setValue(cri.id, store.activeChoiceId, val)
               "
             />
           </div>
