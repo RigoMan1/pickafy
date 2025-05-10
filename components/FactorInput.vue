@@ -56,6 +56,7 @@ const model = defineModel<any>();
       v-else-if="type === 'cost'"
       v-model.number="model"
       type="number"
+      class="max-w-48"
     />
 
     <!-- Text (fallback) -->

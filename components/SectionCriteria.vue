@@ -19,79 +19,80 @@ const criterionDialog = ref(false);
   <div>
     <!-- options creation -->
 
-    <header-section title="What are you comparing?">
-      Start by listing the items you're deciding between. These could be products,
-      services, ideas, or anything you're comparing.
-    </header-section>
-
-    <div class="mt-4 grid grid-cols-5 gap-4">
-      <div
-        v-for="c in $state.choices"
-        :key="c.id"
-      >
-        <div class="flex items-center gap-2">
-          <div
-            class="flex w-full items-center justify-between rounded-lg bg-surface-100/10 px-3 py-1.5"
-          >
-            <span>{{ c.label }}</span>
-
-            <v-button
-              icon="i-mdi-delete"
-              variant="text"
-              color="danger"
-              size="sm"
-              @click.stop="removeChoice(c.id)"
-            />
-          </div>
-        </div>
-      </div>
+    <div class="flex items-center justify-between">
+      <header-section title="What are you comparing?">
+        Start by listing the items you're deciding between. These could be products,
+        services, ideas, or anything you're comparing.
+      </header-section>
 
       <add-option-dialog />
     </div>
+
+    <options-header class="mt-6" />
 
     <v-divider class="my-8" />
 
     <!-- criteria creation -->
 
-    <header-section title="What are your criteria?">
-      What matters most when comparing your options?
-    </header-section>
+    <div class="flex items-center justify-between">
+      <header-section title="What are your criteria?">
+        What matters most when comparing your options?
+      </header-section>
+
+      <v-button
+        id="dialog-add-criterion"
+        label="Add criterion"
+        variant="outlined"
+        color="dark"
+        prepend-icon="i-mdi-plus"
+      />
+      <add-criterion-dialog
+        v-model="criterionDialog"
+        @add-criterion="addCriteria"
+      />
+    </div>
 
     <!-- grid of cards -->
 
-    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div
         v-for="(criterion, criterionIndex) in $state.criteria"
         :key="criterion.title"
-        class="hover:ring-primary flex items-start space-x-4 rounded-lg p-4 text-left shadow-sm ring-1
-          ring-surface-400/40 transition focus:outline-none"
+        class="flex items-start space-x-4 rounded-lg border border-surface-300 p-4 text-left transition
+          focus:outline-none"
       >
         <div class="flex-1">
           <div>
             <div class="flex items-center space-x-2">
-              <v-icon
-                :name="criterion.icon"
-                class="text-primary pt-1 text-xl"
-              />
+              <div
+                class="flex size-12 items-center justify-center rounded-full border border-primary-100/70
+                  bg-primary-50 text-primary-500"
+              >
+                <v-icon :name="criterion.icon" />
+              </div>
 
-              <h3 class="font-semibold">
+              <v-heading
+                class="text-surface-800"
+                variant="subtitle-2"
+              >
                 {{ criterion.title }}
-              </h3>
+              </v-heading>
             </div>
-            <p class="mt-1 text-sm text-gray-600">{{ criterion.description }}</p>
-            <p class="mt-1 text-xs italic text-gray-400">Type: {{ criterion.type }}</p>
+            <p class="mt-1 text-sm">{{ criterion.description }}</p>
+            <p class="mt-1 text-xs italic text-surface-600">Type: {{ criterion.type }}</p>
           </div>
 
-          <v-divider class="my-2" />
+          <v-divider class="my-3" />
 
           <div>
-            <span class="inline-block text-sm text-gray-100">How important is this?</span>
+            <span class="inline-block text-sm text-surface-600">
+              How important is this?
+            </span>
             <range-slider
               v-model="$state.criteria[criterionIndex].weight"
               min="0"
               max="10"
-              label="Priority"
-              class="mt-1 !bg-surface-800"
+              class="mt-1 bg-transparent"
             />
           </div>
         </div>
@@ -112,27 +113,13 @@ const criterionDialog = ref(false);
     </div>
 
     <!-- actions -->
-    <div class="mt-8 flex flex-wrap justify-between gap-3">
-      <v-button
-        id="dialog-add-criterion"
-        variant="outlined"
-        prepend-icon="i-mdi-plus"
-      >
-        Add criterion
-      </v-button>
-
-      <add-criterion-dialog
-        v-model="criterionDialog"
-        @add-criterion="addCriteria"
-      />
-
+    <div class="mt-8 flex justify-end gap-4">
       <v-button
         color="primary"
+        label="Continue"
         :disabled="store.selectedCriteria.length === 0"
         @click="emit('next')"
-      >
-        Continue
-      </v-button>
+      />
     </div>
   </div>
 </template>

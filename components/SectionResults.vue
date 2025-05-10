@@ -17,7 +17,12 @@ const { $state, computeScores } = useMainStore();
 
     <div class="flex gap-12">
       <div class="w-5/12">
-        <v-heading variant="subtitle-2">Fine-Tune Your Picks</v-heading>
+        <v-heading
+          class="text-surface-800"
+          variant="subtitle-2"
+        >
+          Fine-Tune Your Picks
+        </v-heading>
 
         <div
           v-for="(criterion, criterionIndex) in $state.criteria"
@@ -29,22 +34,23 @@ const { $state, computeScores } = useMainStore();
             min="0"
             max="10"
             :label="$state.criteria[criterionIndex].title"
-            class="mt-1 !bg-surface-800"
+            class="mt-1"
           />
         </div>
 
         <v-text
           variant="caption"
-          class="mt-2 inline-block text-gray-400"
+          class="mt-2 inline-block text-surface-500"
         >
           Slide to adjust what matters most. Your results will update based on your
           preferences.
         </v-text>
       </div>
 
-      <div class="w-7/12 space-y-4 p-6">
+      <!-- leaderboard ranking table -->
+      <div class="w-7/12 space-y-4 rounded-xl bg-white p-6 shadow">
         <v-button
-          class="w-full"
+          class="mb-4 w-full"
           :disabled="!$state.choices.length"
           @click="computeScores"
         >
@@ -54,35 +60,46 @@ const { $state, computeScores } = useMainStore();
         <div
           v-for="(r, i) in $state.results"
           :key="r.id"
-          class="flex items-center justify-between gap-24 rounded-xl px-4 py-3 shadow-sm"
+          class="flex items-center justify-between gap-6 rounded-lg px-4 py-4 transition-colors"
           :class="[
             i === 0
-              ? 'bg-surface-100 font-semibold text-green-700'
-              : 'bg-surface-200 text-gray-800',
+              ? 'border border-primary-200 bg-primary-50 font-semibold text-primary-800'
+              : 'bg-surface-100 text-gray-800',
           ]"
         >
-          <div class="flex items-center gap-3">
+          <nuxt-img
+            v-if="r.image"
+            :src="r.image"
+            :alt="r.label"
+            class="size-12 rounded-lg object-cover"
+          />
+
+          <div class="flex flex-1 items-center gap-3">
             <template v-if="i === 0">
               <v-icon
                 name="i-mdi-medal"
-                class="text-lg text-yellow-500"
+                class="text-xl text-yellow-500"
               />
               <div>
-                <div class="text-xs uppercase text-gray-500">Best Overall</div>
-                <div class="text-sm">{{ r.label }}</div>
+                <div class="text-xs uppercase tracking-wide text-gray-500">
+                  Best Overall
+                </div>
+                <div class="text-base font-semibold">{{ r.label }}</div>
               </div>
             </template>
 
             <template v-else>
-              <div class="text-sm font-medium">
+              <div class="w-6 text-base font-semibold">
                 {{ i + 1 }}
-                <sup>{{ ['st', 'nd', 'rd'][i - 1] ?? 'th' }}</sup>
+                <sup class="align-top text-xs">
+                  {{ ['st', 'nd', 'rd'][i - 1] ?? 'th' }}
+                </sup>
               </div>
-              <div class="text-sm">{{ r.label }}</div>
+              <div class="text-base">{{ r.label }}</div>
             </template>
           </div>
 
-          <div class="text-sm font-medium">
+          <div class="text-right text-sm font-medium">
             {{ r.score }}
             <span class="text-xs text-gray-500">/ 100</span>
           </div>

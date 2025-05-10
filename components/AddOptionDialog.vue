@@ -27,16 +27,22 @@ function confirm(): void {
       <v-button
         v-bind="activatorProps"
         variant="outlined"
-        label="+ Add Item"
+        color="dark"
+        label="Add Item"
+        prepend-icon="i-mdi-plus"
       />
     </template>
 
-    <div class="w-[400px] rounded-lg bg-surface-800 p-6 shadow-lg">
-      <v-heading variant="heading-4">New Option</v-heading>
+    <div class="w-[400px] rounded-lg bg-surface-50 p-6 shadow-lg">
+      <v-heading
+        class="text-surface-800"
+        variant="heading-4"
+      >
+        New Option
+      </v-heading>
 
       <v-text-field
         v-model="name"
-        label="Name"
         placeholder="eg. Product, Decision, etc."
         class="mt-4"
         @keyup.enter="confirm"

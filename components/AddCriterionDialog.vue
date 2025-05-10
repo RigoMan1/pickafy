@@ -65,8 +65,13 @@ function confirm(): void {
     class="flex items-center justify-center"
     activator="#dialog-add-criterion"
   >
-    <div class="w-[500px] rounded-lg bg-surface-800 p-6 shadow-lg">
-      <v-heading variant="subtitle-2">Add a New Criterion</v-heading>
+    <div class="w-[500px] rounded-lg bg-surface-50 p-6 shadow-lg">
+      <v-heading
+        class="text-surface-800"
+        variant="subtitle-2"
+      >
+        Add a New Criterion
+      </v-heading>
 
       <v-text-field
         ref="nameInput"
@@ -80,7 +85,7 @@ function confirm(): void {
       <div class="mt-2">
         <span class="mt-6 inline-block">Type</span>
 
-        <p class="h-8 text-sm text-gray-400">
+        <p class="h-8 text-sm text-gray-600">
           {{ typeDescription }}
         </p>
       </div>

@@ -18,7 +18,19 @@ onMounted(() => {
 
 <template>
   <div class="flex-1 overflow-auto p-6">
-    <header-section class="mb-4">
+    <div class="flex items-center justify-between">
+      <header-section title="These are your options">
+        Select an option to evaluate.
+      </header-section>
+
+      <add-option-dialog />
+    </div>
+
+    <options-header class="mt-6" selectable />
+
+    <v-divider class="my-8" />
+
+    <header-section class="mb-6">
       <template #title>
         Evaluate
         <span class="text-blue-600">{{ activeChoice?.label }}</span>
@@ -40,12 +52,17 @@ onMounted(() => {
         <div
           v-for="cri in store.selectedCriteria"
           :key="cri.id"
-          class="flex items-start gap-4 rounded-lg border border-gray-700/50 p-4 shadow-sm"
+          class="flex items-start gap-4 rounded-lg border border-surface-300 p-4"
         >
-          <v-icon
-            :name="cri.icon"
-            class="text-primary mt-1 shrink-0 text-xl"
-          />
+          <div
+            class="flex size-12 items-center justify-center rounded-full border border-primary-100/70
+              bg-primary-50 text-primary-500"
+          >
+            <v-icon
+              :name="cri.icon"
+              class="text-primary mt-1 shrink-0 text-xl"
+            />
+          </div>
 
           <div class="flex-1">
             <v-heading variant="subtitle-2">

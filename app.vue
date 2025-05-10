@@ -1,13 +1,23 @@
 <script setup lang="ts"></script>
 
 <template>
-  <v-app>
-    <v-app-bar class="flex items-center border-b border-zinc-800 bg-zinc-900 px-4">
+  <v-app class="bg-surface-200/55">
+    <v-app-bar
+      class="flex items-center"
+      height="96"
+    >
       <nuxt-link
-        class="ml-3 text-lg font-medium"
+        class="container flex items-center gap-2"
         to="/"
       >
-        <span class="text-zinc-200">🤷 Decisions</span>
+        <nuxt-img
+          src="/images/logo.png"
+          alt="Logo"
+          class="gap-4 rounded-full border border-primary-100"
+          width="40"
+          height="40"
+        />
+        <span class="text-2xl font-bold text-surface-800">Pickafy</span>
       </nuxt-link>
     </v-app-bar>
 

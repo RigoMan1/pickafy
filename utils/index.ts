@@ -74,6 +74,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'wix',
         label: 'Wix',
+        image: 'https://logo.clearbit.com/wix.com',
         values: {
           'id-pricing': 16,
           'id-ease-of-use': 90,
@@ -88,6 +89,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'squarespace',
         label: 'Squarespace',
+        image: 'https://logo.clearbit.com/squarespace.com',
         values: {
           'id-pricing': 23,
           'id-ease-of-use': 85,
@@ -102,6 +104,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'shopify',
         label: 'Shopify',
+        image: 'https://logo.clearbit.com/shopify.com',
         values: {
           'id-pricing': 29,
           'id-ease-of-use': 80,
@@ -116,6 +119,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'wordpress',
         label: 'WordPress',
+        image: 'https://logo.clearbit.com/wordpress.org',
         values: {
           'id-pricing': 5,
           'id-ease-of-use': 60,
@@ -130,6 +134,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'webflow',
         label: 'Webflow',
+        image: 'https://logo.clearbit.com/webflow.com',
         values: {
           'id-pricing': 18,
           'id-ease-of-use': 70,
@@ -144,6 +149,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'custom-dev-headless',
         label: 'Custom Dev',
+        image: 'https://svgl.app/library/vscode.svg',
         values: {
           'id-pricing': 100,
           'id-ease-of-use': 50,
@@ -295,6 +301,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'planet-fitness',
         label: 'Planet Fitness',
+        image: 'https://logo.clearbit.com/planetfitness.com',
         values: {
           'id-cost': 10,
           'id-hours': true,
@@ -309,6 +316,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'la-fitness',
         label: 'L.A. Fitness',
+        image: 'https://logo.clearbit.com/lafitness.com',
         values: {
           'id-cost': 35,
           'id-hours': false,
@@ -323,6 +331,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: '24-hour-fitness',
         label: '24 Hour Fitness',
+        image: 'https://logo.clearbit.com/24hourfitness.com',
         values: {
           'id-cost': 40,
           'id-hours': true,
@@ -337,6 +346,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'golds-gym',
         label: "Gold's Gym",
+        image: 'https://logo.clearbit.com/goldsgym.com',
         values: {
           'id-cost': 35,
           'id-hours': false,
@@ -351,6 +361,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'anytime-fitness',
         label: 'Anytime Fitness',
+        image: 'https://logo.clearbit.com/anytimefitness.com',
         values: {
           'id-cost': 40,
           'id-hours': true,
@@ -365,6 +376,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'equinox',
         label: 'Equinox Fitness',
+        image: 'https://logo.clearbit.com/equinox.com',
         values: {
           'id-cost': 200,
           'id-hours': false,
@@ -379,6 +391,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'lifetime-fitness',
         label: 'Lifetime Fitness',
+        image: 'https://logo.clearbit.com/lifetimefitness.com',
         values: {
           'id-cost': 150,
           'id-hours': false,
@@ -393,6 +406,7 @@ export const sampleTemplates: TemplateData[] = [
       {
         id: 'crunch-fitness',
         label: 'Crunch Fitness',
+        image: 'https://logo.clearbit.com/crunch.com',
         values: {
           'id-cost': 30,
           'id-hours': false,

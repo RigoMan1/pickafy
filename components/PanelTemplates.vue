@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { sampleTemplates } from '~/utils/';
-const { loadTemplate } = useMainStore();
+const { $state, loadTemplate } = useMainStore();
 
 const customTemplate = {
   id: 'custom',
@@ -12,28 +12,45 @@ const customTemplate = {
 
 <template>
   <div>
-    <v-heading variant="subtitle-2">Templates</v-heading>
+    <v-heading
+      class="text-surface-800"
+      variant="subtitle-1"
+    >
+      Templates
+    </v-heading>
 
-    <div class="mt-6 grid grid-cols-2 gap-4">
-      <div
-        class="flex h-24 cursor-pointer items-center justify-center rounded-xl border border-dashed
-          border-gray-500 hover:bg-white/20 text-gray-200"
+    <div class="mt-6 grid gap-4">
+      <v-button
+        :variant="$state.activeTemplateId === customTemplate.id ? 'primary' : 'outlined'"
+        color="dark"
+        class="h-16 rounded-xl !border-surface-300"
         @click="loadTemplate(customTemplate)"
       >
-        <v-text class="text-center">Custom Template</v-text>
-      </div>
+        <template #prepend>
+          <div
+            class="rounded-lg p-2"
+            :class="
+              $state.activeTemplateId === customTemplate.id
+                ? ''
+                : 'bg-surface-200 text-surface-500'
+            "
+          >
+            <v-icon name="i-mdi-file-document-edit-outline" />
+          </div>
+        </template>
+        Custom Template
+      </v-button>
 
-      <div
+      <v-button
         v-for="t in sampleTemplates"
         :key="t.id"
-        class="flex h-24 cursor-pointer items-center justify-center rounded-xl bg-white/10
-          hover:bg-white/20"
+        :variant="$state.activeTemplateId === t.id ? 'primary' : 'outlined'"
+        color="dark"
+        class="h-16 rounded-xl !border-surface-300"
         @click="loadTemplate(t)"
       >
-        <v-text class="text-center">
-          {{ t.name }}
-        </v-text>
-      </div>
+        {{ t.name }}
+      </v-button>
     </div>
   </div>
 </template>

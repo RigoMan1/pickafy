@@ -9,6 +9,13 @@ interface Criterion {
   weight: number;
 }
 
+interface Choice {
+  id: string;
+  label: string;
+  image?: string;
+  values: Record<string, any>;
+}
+
 interface TemplateData {
   id: string;
   name: string;

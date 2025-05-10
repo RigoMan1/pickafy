@@ -1,6 +1,6 @@
 .v-button {
-  @apply inline-flex items-center justify-center capitalize cursor-pointer transition-colors duration-300 outline-none;
-  @apply text-base rounded-md px-4 py-2 bg-white text-black;
+  @apply inline-flex cursor-pointer items-center justify-center capitalize outline-none transition-colors duration-300;
+  @apply rounded-md bg-white px-4 py-2 text-base text-black;
 
   &__content {
     @apply inline-flex items-center;
@@ -15,7 +15,7 @@
   }
 
   &--icon-only {
-    @apply p-2 w-10 h-10 justify-center;
+    @apply h-10 w-10 justify-center p-2;
   }
 
   &--stacked {
@@ -24,68 +24,97 @@
 
   &--size-xs {
     @apply px-2 py-1 text-xs;
-    --v-icon-size: 1rem;
+    --v-icon-size: 0.75rem;
     --v-button-scale: 1.5rem;
   }
 
   &--size-sm {
     @apply px-3 py-1.5 text-sm;
-    --v-icon-size: 1.25rem;
+    --v-icon-size: 1rem;
     --v-button-scale: 2rem;
   }
 
   &--size-base {
     @apply px-4 py-2 text-base;
-    --v-icon-size: 1.5rem;
+    --v-icon-size: 1.25rem;
     --v-button-scale: 2.5rem;
   }
 
   &--size-lg {
     @apply px-5 py-2.5 text-lg;
-    --v-icon-size: 2rem;
+    --v-icon-size: 1.5rem;
     --v-button-scale: 3rem;
   }
 
   &--size-xl {
     @apply px-6 py-3 text-lg;
-    --v-icon-size: 2.5rem;
+    --v-icon-size: 1.75rem;
     --v-button-scale: 3.5rem;
   }
 
   &--color-primary {
-    @apply bg-primary-500 text-white border-white;
+    @apply bg-primary-500 text-white;
+    @apply shadow-md;
+
+    &.v-button--variant-text {
+      @apply hover:bg-primary-500/20;
+    }
+
+    &.router-link-active {
+      @apply bg-primary-500/50;
+    }
+
+    &.v-button--variant-outlined {
+      @apply border-primary-500 text-primary-500;
+    }
+
+    &.v-button--variant-text {
+      @apply text-primary-500;
+    }
   }
 
   &--color-secondary {
-    @apply bg-secondary-500 text-white border-secondary-400;
+    @apply border-secondary-400 bg-secondary-500 text-white;
   }
 
   &--color-success {
-    @apply bg-green-500 text-white border-green-400;
+    @apply border-green-400 bg-green-500 text-white;
   }
 
   &--color-danger {
-    @apply bg-red-500 text-white border-red-400;
+    @apply border-red-400 bg-red-500 text-white;
+
+    .v-icon {
+      @apply text-red-400;
+    }
   }
 
   &--color-warn {
-    @apply bg-yellow-500 text-white border-yellow-400;
+    @apply border-yellow-400 bg-yellow-500 text-white;
   }
 
   &--color-info {
-    @apply bg-primary-400 text-white border-primary-400;
+    @apply border-primary-400 bg-primary-400 text-white;
   }
 
   &--color-light {
-    @apply bg-gray-200 text-gray-800 border-gray-400;
+    @apply border-gray-400 bg-gray-200 text-gray-800;
   }
 
   &--color-dark {
-    @apply bg-slate-700 text-white border-slate-400;
+    @apply border-surface-400 bg-surface-800/95 text-white;
+
+    &.v-button--variant-outlined {
+      @apply border-surface-400 text-surface-800;
+    }
+
+    &.v-button--variant-text {
+      @apply border-surface-400 text-surface-800;
+    }
   }
 
   &--color-help {
-    @apply bg-blue-500 text-white border-blue-400;
+    @apply border-blue-400 bg-blue-500 text-white;
   }
 
   &--variant-primary {
@@ -93,15 +122,15 @@
   }
 
   &--variant-secondary {
-    @apply bg-opacity-80 font-medium shadow-sm border; /* Softer version of primary */
+    @apply border bg-opacity-80 font-medium shadow-sm; /* Softer version of primary */
   }
 
   &--variant-outlined {
-    @apply bg-transparent border border-opacity-20 shadow-none; /* Outlined without background */
+    @apply border border-opacity-20 bg-transparent shadow-none; /* Outlined without background */
   }
 
   &--variant-text {
-    @apply bg-transparent shadow-none font-medium hover:underline; /* Text button with underline on hover */
+    @apply bg-transparent font-medium shadow-none hover:underline; /* Text button with underline on hover */
   }
 
   &--variant-link {
@@ -113,7 +142,7 @@
   }
 
   &[data-state='disabled'] {
-    @apply cursor-not-allowed opacity-50 pointer-events-none;
+    @apply pointer-events-none cursor-not-allowed opacity-50;
   }
 
   &[data-state='active'] {

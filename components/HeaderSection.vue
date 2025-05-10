@@ -7,7 +7,10 @@ defineProps<{
 
 <template>
   <div class="max-w-2xl">
-    <v-heading variant="subtitle-1">
+    <v-heading
+      class="text-surface-800"
+      variant="subtitle-1"
+    >
       <slot name="title">
         {{ title }}
       </slot>

@@ -1,13 +1,8 @@
 import { defineStore } from 'pinia';
 
-export interface Choice {
-  id: string;
-  label: string;
-  values: Record<string, any>;
-}
-
 export const useMainStore = defineStore('main-store', {
   state: () => ({
+    activeTemplateId: '' as string,
     criteria: [] as Criterion[],
     choices: [] as Choice[],
     activeChoiceId: '' as string, // keep only the id
@@ -31,6 +26,8 @@ export const useMainStore = defineStore('main-store', {
 
       // immediately refresh scores
       // this.computeScores();
+
+      this.activeTemplateId = template.id;
     },
 
     setActiveChoiceId(id: string) {

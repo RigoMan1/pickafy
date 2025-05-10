@@ -50,7 +50,7 @@ function starState(index: number): 'full' | 'half' | 'empty' {
         <v-icon
           v-if="starState(i) !== 'empty'"
           :name="starState(i) === 'half' ? 'i-mdi-star-half' : 'i-mdi-star'"
-          class="absolute h-full w-full text-yellow-500"
+          class="absolute h-full w-full text-primary-500"
         />
       </button>
     </template>

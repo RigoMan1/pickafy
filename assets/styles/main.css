@@ -8,8 +8,8 @@
 }
 
 html {
-  color-scheme: light dark;
-  background-color: theme('colors.surface.950');
+  /* color-scheme: light dark; */
+  /* background-color: #fdfdfc; */
 }
 
 .bd,
