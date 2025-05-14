@@ -1,11 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <v-app class="bg-surface-200/55">
-    <v-app-bar
-      class="flex items-center"
-      height="96"
-    >
+  <v-app class="bg-[#F0F0F2]">
+    <v-app-bar class="flex items-center bg-[#F0F0F2]">
       <nuxt-link
         class="container flex items-center gap-2"
         to="/"

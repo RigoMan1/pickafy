@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
+import { scoreChoices } from '~/utils/scoreChoices';
 
 export const useMainStore = defineStore('main-store', {
   state: () => ({
     activeTemplateId: '' as string,
-    criteria: [] as Criterion[],
+    activeChoiceId: '' as string,
     choices: [] as Choice[],
-    activeChoiceId: '' as string, // keep only the id
+    criteria: [] as Criterion[],
     results: [] as Array<Choice & { score: number }>,
   }),
 
@@ -23,9 +24,6 @@ export const useMainStore = defineStore('main-store', {
 
       // pick first choice as active (or clear if none)
       this.activeChoiceId = this.choices[0]?.id ?? '';
-
-      // immediately refresh scores
-      // this.computeScores();
 
       this.activeTemplateId = template.id;
     },
@@ -49,57 +47,13 @@ export const useMainStore = defineStore('main-store', {
     /** write a single cell */
     setValue(criTitle: string, choiceId: string, val: any) {
       const ch = this.choices.find((c) => c.id === choiceId);
-      if (ch) ch.values[criTitle] = val;
+      // if (ch) ch.values[criTitle] = val;
+      if (ch) ch.values = { ...ch.values, [criTitle]: val };
     },
 
     /** compute & rank */
     computeScores() {
-      const costExtremes: Record<string, { min: number; max: number }> = {};
-      // find min/max once
-      this.selectedCriteria
-        .filter((c) => c.type === 'cost')
-        .forEach((cri) => {
-          const vals = this.choices.map((c) => Number(c.values[cri.id] ?? 0));
-          // costExtremes[cri.title] = { min: Math.min(...vals), max: Math.max(...vals) };
-          costExtremes[cri.id] = { min: Math.min(...vals), max: Math.max(...vals) };
-        });
-
-      const totalWeights = this.selectedCriteria.reduce((s, c) => s + c.weight, 0);
-
-      this.results = this.choices
-        .map((ch) => {
-          let total = 0;
-          this.selectedCriteria.forEach((cri) => {
-            const raw = ch.values?.[cri.id];
-            let norm = 0;
-
-            switch (cri.type) {
-              case 'scale-rating':
-                norm = (Math.min(Math.max(Number(raw) || 0, 0), 10) / 10) * 100;
-                break;
-              case 'boolean':
-                norm = raw ? 100 : 0;
-                break;
-              case 'percentage':
-                norm = Math.min(Math.max(Number(raw) || 0, 0), 100);
-                break;
-              case 'cost':
-                const { min, max } = costExtremes[cri.id];
-                norm = max === min ? 100 : ((max - Number(raw || 0)) / (max - min)) * 100;
-                break;
-              case 'text':
-                norm = raw && String(raw).trim() ? 100 : 0;
-                break;
-            }
-            total += (cri.weight * norm) / 100;
-          });
-
-          return {
-            ...ch,
-            score: totalWeights ? Math.round((total / totalWeights) * 100) : 0,
-          };
-        })
-        .sort((a, b) => b.score - a.score);
+      this.results = scoreChoices(this.choices, this.criteria);
     },
   },
 });

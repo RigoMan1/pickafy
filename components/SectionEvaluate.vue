@@ -26,14 +26,17 @@ onMounted(() => {
       <add-option-dialog />
     </div>
 
-    <options-header class="mt-6" selectable />
+    <options-header
+      class="mt-6"
+      selectable
+    />
 
     <v-divider class="my-8" />
 
     <header-section class="mb-6">
       <template #title>
         Evaluate
-        <span class="text-blue-600">{{ activeChoice?.label }}</span>
+        <span class="text-primary-600">{{ activeChoice?.label }}</span>
         for each category
       </template>
 
@@ -47,7 +50,14 @@ onMounted(() => {
       No options available. Please add options to evaluate.
     </div>
 
-    <template v-else>
+    <div
+      v-if="activeChoice && !store.selectedCriteria.length"
+      class="py-12 text-center text-gray-500"
+    >
+      No criteria available. Please select criteria to evaluate.
+    </div>
+
+    <template v-if="activeChoice && store.selectedCriteria.length">
       <div class="grid grid-cols-2 gap-4">
         <div
           v-for="cri in store.selectedCriteria"

@@ -2,6 +2,9 @@
 import { useMainStore } from '@/stores/mainStore';
 
 const { $state, computeScores } = useMainStore();
+const { criteria, choices } = toRefs($state);
+
+watch([criteria, choices], () => computeScores(), { deep: true, immediate: true });
 </script>
 
 <template>
@@ -49,62 +52,90 @@ const { $state, computeScores } = useMainStore();
 
       <!-- leaderboard ranking table -->
       <div class="w-7/12 space-y-4 rounded-xl bg-white p-6 shadow">
-        <v-button
-          class="mb-4 w-full"
-          :disabled="!$state.choices.length"
-          @click="computeScores"
+        <TransitionGroup
+          name="rank"
+          tag="div"
+          class="space-y-4"
         >
-          Get Scores
-        </v-button>
-
-        <div
-          v-for="(r, i) in $state.results"
-          :key="r.id"
-          class="flex items-center justify-between gap-6 rounded-lg px-4 py-4 transition-colors"
-          :class="[
-            i === 0
-              ? 'border border-primary-200 bg-primary-50 font-semibold text-primary-800'
-              : 'bg-surface-100 text-gray-800',
-          ]"
-        >
-          <nuxt-img
-            v-if="r.image"
-            :src="r.image"
-            :alt="r.label"
-            class="size-12 rounded-lg object-cover"
-          />
-
-          <div class="flex flex-1 items-center gap-3">
-            <template v-if="i === 0">
-              <v-icon
-                name="i-mdi-medal"
-                class="text-xl text-yellow-500"
+          <div
+            v-for="(r, i) in $state.results"
+            :key="r.id"
+            class="flex items-center justify-between gap-6 rounded-lg px-4 py-4 transition-colors"
+            :class="[
+              i === 0
+                ? 'border border-primary-200 bg-primary-50 font-semibold text-primary-800'
+                : 'bg-surface-100 text-gray-800',
+            ]"
+          >
+            <v-button
+              size="none"
+              variant="none"
+              color="none"
+              class="p-0 transition-all duration-100 ease-in-out"
+              :class="{ 'cursor-auto': !r.url, 'hover:scale-105 hover:shadow': r.url }"
+              :ripple="!!r.url"
+              :href="r.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="`View ${r.label}`"
+            >
+              <nuxt-img
+                v-if="r.image"
+                :src="r.image"
+                :alt="r.label"
+                class="size-12 rounded-lg object-cover"
               />
-              <div>
-                <div class="text-xs uppercase tracking-wide text-gray-500">
-                  Best Overall
+            </v-button>
+
+            <div class="flex flex-1 items-center gap-3">
+              <template v-if="i === 0">
+                <v-icon
+                  name="i-mdi-medal"
+                  class="text-xl text-yellow-500"
+                />
+                <div>
+                  <div class="text-xs uppercase tracking-wide text-gray-500">
+                    Best Overall
+                  </div>
+                  <div class="text-base font-semibold">{{ r.label }}</div>
                 </div>
-                <div class="text-base font-semibold">{{ r.label }}</div>
-              </div>
-            </template>
+              </template>
 
-            <template v-else>
-              <div class="w-6 text-base font-semibold">
-                {{ i + 1 }}
-                <sup class="align-top text-xs">
-                  {{ ['st', 'nd', 'rd'][i - 1] ?? 'th' }}
-                </sup>
-              </div>
-              <div class="text-base">{{ r.label }}</div>
-            </template>
-          </div>
+              <template v-else>
+                <div class="w-6 text-base font-semibold">
+                  {{ i + 1 }}
+                  <sup class="align-top text-xs">
+                    {{ ['st', 'nd', 'rd'][i - 1] ?? 'th' }}
+                  </sup>
+                </div>
+                <div class="text-base">{{ r.label }}</div>
+              </template>
+            </div>
 
-          <div class="text-right text-sm font-medium">
-            {{ r.score }}
-            <span class="text-xs text-gray-500">/ 100</span>
+            <div class="text-right text-sm font-medium">
+              {{ r.score }}
+              <span class="text-xs text-gray-500">/ 100</span>
+            </div>
           </div>
-        </div>
+        </TransitionGroup>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.rank-move {
+  transition: transform 0.25s ease;
+}
+
+.rank-enter-active,
+.rank-leave-active {
+  transition: all 0.2s ease;
+}
+
+.rank-enter-from,
+.rank-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+</style>
