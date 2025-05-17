@@ -48,6 +48,21 @@ export const useMainStore = defineStore('main-store', {
       }
     },
 
+    addCriterion(payload: { title: string; type: FactorType; icon: string }) {
+      this.criteria.push({
+        id: crypto.randomUUID(),
+        title: payload.title,
+        description: '',
+        icon: payload.icon,
+        type: payload.type,
+        weight: 0,
+      });
+    },
+    updateCriterion(id: string, patch: Partial<Criterion>) {
+      const idx = this.criteria.findIndex((c) => c.id === id);
+      if (idx !== -1) this.criteria[idx] = { ...this.criteria[idx], ...patch };
+    },
+
     /** write a single cell */
     setValue(criTitle: string, choiceId: string, val: any) {
       const ch = this.choices.find((c) => c.id === choiceId);

@@ -67,26 +67,13 @@ function confirm() {
   if (!title) return;
 
   if (props.mode === 'edit' && props.criterion) {
-    /* -------- UPDATE -------- */
-    const idx = store.$state.criteria.findIndex((c) => c.id === props.criterion!.id);
-    if (idx !== -1) {
-      store.$state.criteria[idx] = {
-        ...store.$state.criteria[idx],
-        title,
-        type: type.value,
-        icon: ICON_MAP[type.value],
-      };
-    }
-  } else {
-    /* -------- ADD -------- */
-    store.$state.criteria.push({
-      id: crypto.randomUUID(),
+    store.updateCriterion(props.criterion.id, {
       title,
-      description: '',
-      icon: ICON_MAP[type.value],
       type: type.value,
-      weight: 0,
+      icon: ICON_MAP[type.value],
     });
+  } else {
+    store.addCriterion({ title, type: type.value, icon: ICON_MAP[type.value] });
   }
 
   emit('close');
