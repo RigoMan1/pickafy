@@ -2,13 +2,9 @@
 const { $state } = useMainStore();
 const store = useMainStore();
 
-function addCriteria(criterion: Criterion) {
-  $state.criteria.push(criterion);
-}
-
 const emit = defineEmits(['next']);
 
-const criterionDialog = ref(false);
+const isCriterionDialogOpen = ref(false);
 </script>
 
 <template>
@@ -38,9 +34,9 @@ const criterionDialog = ref(false);
         color="dark"
         prepend-icon="i-mdi-plus"
       />
-      <add-criterion-dialog
-        v-model="criterionDialog"
-        @add-criterion="addCriteria"
+      <criterion-dialog
+        v-model="isCriterionDialogOpen"
+        activator="#dialog-add-criterion"
       />
     </div>
 

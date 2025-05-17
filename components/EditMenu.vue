@@ -7,6 +7,7 @@ const open = defineModel<boolean>();
     v-model="open"
     max-width="480px"
     class="flex items-center justify-center"
+    :_disable-global-stack="true"
   >
     <template #activator="{ props: activatorProps }">
       <v-button
@@ -18,7 +19,7 @@ const open = defineModel<boolean>();
       />
     </template>
 
-    <div class="w-[200px] rounded-lg bg-surface-50 p-2 shadow-lg flex flex-col">
+    <div class="flex w-[200px] flex-col rounded-lg bg-surface-50 p-2 shadow-lg">
       <slot />
     </div>
   </v-menu>

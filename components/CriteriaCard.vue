@@ -9,6 +9,15 @@ const { $state } = useMainStore();
 function removeCriteria(criterion: Criterion) {
   $state.criteria = $state.criteria.filter((c) => c.title !== criterion.title);
 }
+
+/* editing state */
+const editing = ref(false);
+const toEdit = ref<Criterion | null>(null);
+
+function openEdit(c: Criterion) {
+  toEdit.value = c;
+  editing.value = true;
+}
 </script>
 
 <template>
@@ -50,19 +59,28 @@ function removeCriteria(criterion: Criterion) {
       </div>
     </div>
 
-    <v-divider
-      vertical
-      class="!my-0"
-    />
+    <edit-menu>
+      <v-button
+        id="dialog-edit-criterion"
+        label="Edit"
+        variant="text"
+        class="block text-left"
+        @click.stop="openEdit(criterion)"
+      />
+      <v-button
+        label="Delete"
+        variant="text"
+        color="danger"
+        class="block text-left"
+        @click.stop="removeCriteria(criterion)"
+      />
+    </edit-menu>
 
-    <v-button
-      icon="i-mdi-delete"
-      variant="text"
-      color="danger"
-      class="!m-0"
-      @click.stop="removeCriteria(criterion)"
+    <criterion-dialog
+      v-model="editing"
+      :criterion="toEdit"
+      mode="edit"
+      @close="editing = false"
     />
   </div>
 </template>
-
-<style></style>

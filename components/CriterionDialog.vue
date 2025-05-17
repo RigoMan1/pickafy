@@ -1,9 +1,30 @@
 <script setup lang="ts">
+import { useMainStore } from '~/stores/mainStore';
+
 const open = defineModel<boolean>();
 
-const name = ref('');
+const props = defineProps({
+  mode: { type: String as PropType<'add' | 'edit'>, default: 'add' },
+  criterion: { type: Object as PropType<Criterion | null>, default: null },
+});
+const emit = defineEmits<{ (e: 'close'): void }>();
 
+const name = ref('');
 const type = ref<FactorType>('scale-rating');
+
+watch(
+  () => props.criterion,
+  (c) => {
+    if (props.mode === 'edit' && c) {
+      name.value = c.title;
+      type.value = c.type;
+    } else {
+      name.value = '';
+      type.value = 'scale-rating';
+    }
+  },
+  { immediate: true }
+);
 
 const TYPES: ReadonlyArray<{ label: string; value: FactorType }> = [
   { label: 'Star rating', value: 'scale-rating' },
@@ -33,28 +54,42 @@ const ICON_MAP: Record<FactorType, string> = {
 
 const typeDescription = computed(() => DESCRIPTION_MAP[type.value]);
 
-function reset(): void {
-  open.value = false;
+const store = useMainStore();
+
+function reset() {
   name.value = '';
   type.value = 'scale-rating';
+  open.value = false;
 }
 
-const emit = defineEmits<{
-  (e: 'addCriterion', value: Criterion): void;
-}>();
+function confirm() {
+  const title = name.value.trim();
+  if (!title) return;
 
-function confirm(): void {
-  if (!name.value.trim()) return;
+  if (props.mode === 'edit' && props.criterion) {
+    /* -------- UPDATE -------- */
+    const idx = store.$state.criteria.findIndex((c) => c.id === props.criterion!.id);
+    if (idx !== -1) {
+      store.$state.criteria[idx] = {
+        ...store.$state.criteria[idx],
+        title,
+        type: type.value,
+        icon: ICON_MAP[type.value],
+      };
+    }
+  } else {
+    /* -------- ADD -------- */
+    store.$state.criteria.push({
+      id: crypto.randomUUID(),
+      title,
+      description: '',
+      icon: ICON_MAP[type.value],
+      type: type.value,
+      weight: 0,
+    });
+  }
 
-  emit('addCriterion', {
-    id: crypto.randomUUID(),
-    title: name.value.trim(),
-    description: '',
-    icon: ICON_MAP[type.value],
-    type: type.value,
-    weight: 0,
-  });
-
+  emit('close');
   reset();
 }
 </script>
@@ -63,16 +98,11 @@ function confirm(): void {
   <v-dialog
     v-model="open"
     class="flex items-center justify-center"
-    activator="#dialog-add-criterion"
   >
     <div class="w-[500px] rounded-lg bg-surface-50 p-6 shadow-lg">
-      <v-heading
-        class="text-surface-800"
-        variant="subtitle-2"
-      >
-        Add a New Criterion
+      <v-heading variant="subtitle-2">
+        {{ props.mode === 'edit' ? 'Edit Criterion' : 'Add a New Criterion' }}
       </v-heading>
-
       <v-text-field
         ref="nameInput"
         v-model="name"
@@ -130,14 +160,13 @@ function confirm(): void {
         >
           Cancel
         </v-button>
-
         <v-button
           color="primary"
-          prepend-icon="i-mdi-plus"
+          :prepend-icon="props.mode === 'add' ? 'i-mdi-plus' : undefined"
           :disabled="!name.trim()"
           @click="confirm"
         >
-          Add criterion
+          {{ props.mode === 'edit' ? 'Save' : 'Add criterion' }}
         </v-button>
       </div>
     </div>
