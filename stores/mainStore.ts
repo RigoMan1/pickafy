@@ -36,6 +36,10 @@ export const useMainStore = defineStore('main-store', {
       this.choices.push({ id, label, values: {} });
       if (!this.activeChoiceId) this.setActiveChoiceId(id);
     },
+    updateChoice(id: string, patch: Partial<Choice>) {
+      const idx = this.choices.findIndex((c) => c.id === id);
+      if (idx !== -1) this.choices[idx] = { ...this.choices[idx], ...patch };
+    },
     removeChoice(id: string) {
       this.choices = this.choices.filter((c) => c.id !== id);
       if (this.activeChoiceId === id) {

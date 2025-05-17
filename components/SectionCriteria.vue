@@ -19,7 +19,7 @@ const criterionDialog = ref(false);
         services, ideas, or anything you're comparing.
       </header-section>
 
-      <add-option-dialog />
+      <choice-dialog mode="add" />
     </div>
 
     <options-header class="mt-6" />

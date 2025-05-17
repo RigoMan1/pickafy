@@ -23,7 +23,7 @@ onMounted(() => {
         Select an option to evaluate.
       </header-section>
 
-      <add-option-dialog />
+      <!-- <choice-dialog mode="add" /> -->
     </div>
 
     <options-header

@@ -4,6 +4,15 @@ const { $state, removeChoice } = useMainStore();
 defineProps<{
   selectable?: boolean;
 }>();
+
+/* editing state */
+const editing = ref(false);
+const toEdit = ref<Choice | null>(null);
+
+function openEdit(c: Choice) {
+  toEdit.value = c;
+  editing.value = true;
+}
 </script>
 
 <template>
@@ -27,12 +36,27 @@ defineProps<{
           />
           <span>{{ c.label }}</span>
 
-          <v-button
-            icon="i-mdi-delete"
-            variant="text"
-            color="danger"
-            size="sm"
-            @click.stop="removeChoice(c.id)"
+          <edit-menu>
+            <v-button
+              label="Edit"
+              variant="text"
+              class="block text-left"
+              @click.stop="openEdit(c)"
+            />
+            <v-button
+              label="Delete"
+              variant="text"
+              color="danger"
+              class="block text-left"
+              @click.stop="removeChoice(c.id)"
+            />
+          </edit-menu>
+
+          <choice-dialog
+            v-model="editing"
+            :choice="toEdit"
+            mode="edit"
+            @close="editing = false"
           />
         </div>
       </div>
