@@ -20,6 +20,12 @@ function openEdit(c: Choice) {
     v-if="!selectable"
     class="grid grid-cols-4 gap-4"
   >
+    <choice-dialog
+      v-model="editing"
+      :choice="toEdit"
+      mode="edit"
+      @close="editing = false"
+    />
     <div
       v-for="c in $state.choices"
       :key="c.id"
@@ -51,13 +57,6 @@ function openEdit(c: Choice) {
               @click.stop="removeChoice(c.id)"
             />
           </edit-menu>
-
-          <choice-dialog
-            v-model="editing"
-            :choice="toEdit"
-            mode="edit"
-            @close="editing = false"
-          />
         </div>
       </div>
     </div>
