@@ -5,6 +5,22 @@ const store = useMainStore();
 const emit = defineEmits(['next']);
 
 const isCriterionDialogOpen = ref(false);
+
+const missingRequirements = computed(() => {
+  const messages: string[] = [];
+
+  if ($state.choices.length === 0) {
+    messages.push('Add at least one option');
+  }
+  if ($state.criteria.length === 0) {
+    messages.push('Add at least one criterion');
+  }
+  if (store.selectedCriteria.length === 0) {
+    messages.push('Assign weight to at least one criterion');
+  }
+
+  return messages;
+});
 </script>
 
 <template>
@@ -49,11 +65,52 @@ const isCriterionDialogOpen = ref(false);
       />
     </div>
 
-    <div class="mt-8 flex justify-end gap-4">
+    <!-- <div class="mt-8 flex justify-end gap-4">
       <v-button
         color="primary"
         label="Continue"
         :disabled="store.selectedCriteria.length === 0"
+        @click="emit('next')"
+      />
+    </div>
+
+    <client-only>
+      <v-alert
+        v-if="missingRequirements.length"
+        class="!-mb-4 mt-4"
+      >
+        <ul class="list-disc pl-5">
+          <li
+            v-for="(msg, idx) in missingRequirements"
+            :key="idx"
+          >
+            {{ msg }}
+          </li>
+        </ul>
+      </v-alert>
+    </client-only> -->
+
+    <div class="mt-8 flex items-end justify-end gap-4">
+      <client-only>
+        <v-alert
+          v-if="missingRequirements.length"
+          class="w-full"
+        >
+          <ul class="list-disc pl-5">
+            <li
+              v-for="(msg, idx) in missingRequirements"
+              :key="idx"
+            >
+              {{ msg }}
+            </li>
+          </ul>
+        </v-alert>
+      </client-only>
+
+      <v-button
+        color="primary"
+        label="Continue"
+        :disabled="store.selectedCriteria.length"
         @click="emit('next')"
       />
     </div>
