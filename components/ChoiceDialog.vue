@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMainStore } from '~/stores/mainStore';
+import { tokenizeInput } from '~/utils';
 
 interface Choice {
   id: string;
@@ -29,13 +30,13 @@ function reset() {
 }
 
 function confirm() {
-  const trimmed = label.value.trim();
-  if (!trimmed) return;
+  const tokens = tokenizeInput(label.value) as string[];
+  if (!tokens.length) return;
 
-  if (props.choice && props.mode === 'edit') {
-    store.updateChoice(props.choice.id, { label: trimmed });
+  if (props.mode === 'edit' && props.choice) {
+    store.updateChoice(props.choice.id, { label: tokens[0] });
   } else {
-    store.addChoice(trimmed);
+    tokens.forEach((t) => store.addChoice(t));
   }
 
   emit('close');

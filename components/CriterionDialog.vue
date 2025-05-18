@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useMainStore } from '~/stores/mainStore';
+import { tokenizeInput } from '~/utils';
 
 const open = defineModel<boolean>();
 
@@ -63,17 +64,19 @@ function reset() {
 }
 
 function confirm() {
-  const title = name.value.trim();
-  if (!title) return;
+  const titles = tokenizeInput(name.value);
+  if (!titles.length) return;
 
   if (props.mode === 'edit' && props.criterion) {
     store.updateCriterion(props.criterion.id, {
-      title,
+      title: titles[0],
       type: type.value,
       icon: ICON_MAP[type.value],
     });
   } else {
-    store.addCriterion({ title, type: type.value, icon: ICON_MAP[type.value] });
+    titles.forEach((title) =>
+      store.addCriterion({ title, type: type.value, icon: ICON_MAP[type.value] })
+    );
   }
 
   emit('close');

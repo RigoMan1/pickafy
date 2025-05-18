@@ -993,3 +993,10 @@ export const sampleTemplates: TemplateData[] = [
     ],
   },
 ];
+
+export function tokenizeInput(raw: string): string[] {
+  return raw
+    .split(/[,;\n]/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
