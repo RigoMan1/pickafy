@@ -35,9 +35,6 @@ export function scoreChoices(
             norm = max === min ? 100 : ((max - (+raw || 0)) / (max - min)) * 100;
             break;
           }
-          case 'text':
-            norm = raw && String(raw).trim() ? 100 : 0;
-            break;
         }
         total += (c.weight * norm) / 100;
       });
