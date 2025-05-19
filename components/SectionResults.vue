@@ -60,13 +60,20 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
           <div
             v-for="(r, i) in $state.results"
             :key="r.id"
-            class="flex items-center justify-between gap-6 rounded-lg px-4 py-4 transition-colors"
+            class="flex cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-4
+              transition-colors
+              hover:bg-surface-200
+              "
             :class="[
               i === 0
                 ? 'border border-primary-200 bg-primary-50 font-semibold text-primary-800'
                 : 'bg-surface-100 text-gray-800',
             ]"
           >
+            <pickafy-spec-sheet-read-only
+              :active-choice="r"
+              :criteria="criteria"
+            />
             <v-button
               size="none"
               variant="none"
