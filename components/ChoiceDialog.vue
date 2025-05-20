@@ -62,7 +62,7 @@ function confirm() {
       />
     </template>
 
-    <div class="w-[400px] rounded-lg bg-surface-50 p-6 shadow-lg">
+    <div class="w-[350px] rounded-lg bg-surface-50 p-6 shadow-lg sm:w-[400px]">
       <v-heading variant="heading-4">
         {{ props.choice ? 'Rename option' : 'New Option' }}
       </v-heading>

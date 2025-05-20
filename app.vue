@@ -1,22 +1,44 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const drawer = ref(false);
+</script>
 
 <template>
   <v-app class="bg-[#F0F0F2]">
-    <v-app-bar class="flex items-center bg-[#F0F0F2]">
-      <nuxt-link
-        class="container flex items-center gap-2"
-        to="/"
-      >
-        <nuxt-img
-          src="/images/logo.png"
-          alt="Logo"
-          class="gap-4 rounded-full border border-primary-100"
-          width="40"
-          height="40"
+    <v-app-bar class="bg-[#F0F0F2]">
+      <div class="container flex h-full items-center px-2 md:px-0">
+        <v-button
+          variant="text"
+          color="dark"
+          icon="i-mdi-menu"
+          class="lg:hidden"
+          @click="drawer = !drawer"
         />
-        <span class="text-2xl font-bold text-surface-800">Pickafy</span>
-      </nuxt-link>
+        <nuxt-link
+          class="mx-auto flex items-center gap-2 lg:mx-0"
+          to="/"
+        >
+          <nuxt-img
+            src="/images/logo.png"
+            alt="Logo"
+            class="gap-4 rounded-full border border-primary-100"
+            width="40"
+            height="40"
+          />
+          <span class="text-2xl font-bold text-surface-800">Pickafy</span>
+        </nuxt-link>
+      </div>
     </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+      width="300"
+      class="bg-surface-100 p-4"
+    >
+      <div>
+        <panel-templates />
+      </div>
+    </v-navigation-drawer>
 
     <v-main>
       <nuxt-page />

@@ -58,7 +58,7 @@ onMounted(() => {
     </div>
 
     <template v-if="activeChoice && store.selectedCriteria.length">
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div
           v-for="cri in store.selectedCriteria"
           :key="cri.id"

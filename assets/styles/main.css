@@ -16,3 +16,7 @@ html {
 [bd] {
   border: 1px solid magenta;
 }
+
+.container {
+  @apply mx-auto px-2 sm:px-6 lg:px-8;
+}

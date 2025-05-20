@@ -8,18 +8,21 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
 </script>
 
 <template>
-  <div>
+  <div class="px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
     <header-section
       title="See Your Top Picks"
-      class="mx-auto text-center"
+      class="mx-auto max-w-2xl text-center"
     >
       Here’s how your options rank based on your ratings and priorities.
     </header-section>
 
     <v-divider class="my-8" />
 
-    <div class="flex gap-12">
-      <div class="w-5/12">
+    <!-- Main content: filters + leaderboard -->
+    <div class="flex flex-col gap-6 lg:flex-row lg:gap-12">
+      <!-- Fine-tune panel -->
+      <div class="w-full lg:w-5/12">
         <v-heading
           class="text-surface-800"
           variant="subtitle-2"
@@ -28,16 +31,16 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
         </v-heading>
 
         <div
-          v-for="(criterion, criterionIndex) in $state.criteria"
+          v-for="(criterion, idx) in $state.criteria"
           :key="criterion.title"
           class="mt-4"
         >
           <range-slider
-            v-model="$state.criteria[criterionIndex].weight"
+            v-model="$state.criteria[idx].weight"
             min="0"
             max="10"
-            :label="$state.criteria[criterionIndex].title"
-            class="mt-1"
+            :label="criterion.title"
+            class="mt-1 w-full"
           />
         </div>
 
@@ -50,8 +53,8 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
         </v-text>
       </div>
 
-      <!-- leaderboard ranking table -->
-      <div class="w-7/12 space-y-4 rounded-xl bg-white p-6 shadow">
+      <!-- Leaderboard panel -->
+      <div class="mt-6 w-full space-y-4 rounded-xl bg-white p-6 shadow lg:mt-0 lg:w-7/12">
         <TransitionGroup
           name="rank"
           tag="div"
@@ -60,20 +63,22 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
           <div
             v-for="(r, i) in $state.results"
             :key="r.id"
-            class="flex cursor-pointer items-center justify-between gap-6 rounded-lg px-4 py-4
-              transition-colors
-              hover:bg-surface-200
-              "
+            class="flex items-start justify-between gap-4 rounded-lg px-4 py-4 transition-colors
+              hover:bg-surface-200"
             :class="[
               i === 0
                 ? 'border border-primary-200 bg-primary-50 font-semibold text-primary-800'
                 : 'bg-surface-100 text-gray-800',
             ]"
           >
+            <!-- spec sheet -->
             <pickafy-spec-sheet-read-only
               :active-choice="r"
               :criteria="criteria"
+              class="w-full flex-1"
             />
+
+            <!-- optional image link -->
             <v-button
               size="none"
               variant="none"
@@ -90,7 +95,7 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
                 v-if="r.image"
                 :src="r.image"
                 :alt="r.label"
-                class="size-12 rounded-lg object-cover"
+                class="h-12 w-12 rounded-lg object-cover"
               />
             </v-button>
 
@@ -107,7 +112,6 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
                   <div class="text-base font-semibold">{{ r.label }}</div>
                 </div>
               </template>
-
               <template v-else>
                 <div class="w-6 text-base font-semibold">
                   {{ i + 1 }}
@@ -119,6 +123,7 @@ watch([criteria, choices], () => computeScores(), { deep: true, immediate: true 
               </template>
             </div>
 
+            <!-- score -->
             <div class="text-right text-sm font-medium">
               {{ r.score }}
               <span class="text-xs text-gray-500">/ 100</span>

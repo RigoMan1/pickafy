@@ -19,7 +19,7 @@ const customTemplate = {
       Templates
     </v-heading>
 
-    <div class="mt-6 grid gap-4">
+    <div class="mt-6 grid grid-cols-1 gap-4">
       <v-button
         :variant="$state.activeTemplateId === customTemplate.id ? 'primary' : 'outlined'"
         color="dark"

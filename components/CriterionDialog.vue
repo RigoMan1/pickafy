@@ -89,7 +89,7 @@ function confirm() {
     v-model="open"
     class="flex items-center justify-center"
   >
-    <div class="w-[500px] rounded-lg bg-surface-50 p-6 shadow-lg">
+    <div class="max-w-[500px] rounded-lg bg-surface-50 p-6 shadow-lg">
       <v-heading variant="subtitle-2">
         {{ props.mode === 'edit' ? 'Edit Criterion' : 'Add a New Criterion' }}
       </v-heading>
@@ -112,7 +112,7 @@ function confirm() {
 
       <v-group
         v-model="type"
-        class="mt-4 grid grid-cols-3 gap-3"
+        class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3"
         mandatory
       >
         <v-group-item
