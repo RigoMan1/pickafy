@@ -1,6 +1,13 @@
 <script setup lang="ts">
 const slidesRef = ref();
-const slide = ref('criteria');
+const slide = ref('home');
+
+watch(slide, async () => {
+  await nextTick();
+  if (slidesRef.value?.$el) {
+    slidesRef.value.$el.scrollTop = 0;
+  }
+});
 </script>
 
 <template>
@@ -8,9 +15,23 @@ const slide = ref('criteria');
     <div class="flex justify-center p-4">
       <v-group
         v-model="slide"
-        class="flex items-center rounded-full bg-surface-100 px-4 py-2 shadow-sm ring-1 ring-surface-300
-          sm:gap-2"
+        class="flex items-center rounded-full bg-surface-100 py-2 shadow-sm ring-1 ring-surface-300
+          sm:gap-2 sm:px-4"
       >
+        <v-group-item
+          v-slot="{ isSelected }"
+          value="home"
+        >
+          <v-button
+            icon="i-mdi-home"
+            variant="text"
+            :class="{ '!text-primary-500': isSelected }"
+            class="rounded-full"
+            @click="slide = 'home'"
+          />
+          <v-divider vertical />
+        </v-group-item>
+
         <v-group-item
           v-for="(item, index) in ['criteria', 'evaluate', 'results']"
           :key="index"
@@ -22,6 +43,7 @@ const slide = ref('criteria');
             variant="text"
             color="dark"
             :class="{ '!text-primary-500': isSelected }"
+            class="rounded-full"
             @click="slide = item"
           />
           <span
@@ -37,17 +59,21 @@ const slide = ref('criteria');
       </v-group>
     </div>
 
-    <div class="mt-4 lg:mt-12 flex h-full gap-4">
-      <!-- side panel -->
-      <div class="hidden w-1/3 rounded-lg bg-gray-50 p-8 shadow lg:block">
-        <panel-templates />
-      </div>
+    <div class="mt-2 flex gap-4 lg:mt-6">
       <!-- main -->
       <v-slides
         ref="slidesRef"
         v-model="slide"
-        class="h-full w-full rounded-lg bg-gray-50 shadow"
+        class="max-h-[calc(100vh-10rem)] w-full overflow-y-auto overflow-x-hidden rounded-lg bg-gray-50
+          shadow sm:max-h-[calc(100vh-14rem)]"
       >
+        <v-slide
+          class="flex items-center justify-center"
+          value="home"
+        >
+          <home-panel @next="slide = 'criteria'" />
+        </v-slide>
+
         <v-slide
           class="flex items-center justify-center"
           value="criteria"

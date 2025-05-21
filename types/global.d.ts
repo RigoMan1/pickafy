@@ -24,6 +24,8 @@ interface Choice {
 interface TemplateData {
   id: string;
   name: string;
+  description: string;
+  image: string;
   criteria: Criterion[];
   choices: Choice[];
 }

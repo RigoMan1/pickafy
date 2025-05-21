@@ -80,16 +80,17 @@ async function handleEnterKey(event: KeyboardEvent) {
         you.
       </v-text>
 
-      <div class="mt-2 flex items-center rounded-lg bg-surface-800 px-2 py-1">
+      <div
+        class="mt-2 flex items-center rounded-lg border border-surface-300 bg-surface-100 px-2 py-1"
+      >
         <textarea
           id="chat"
           ref="inputEl"
           v-model="message"
           rows="6"
-          class="block max-h-40 w-full resize-none overflow-y-auto rounded-lg border-surface-300 bg-white
-            p-2.5 text-sm text-surface-900 outline-none focus:border-primary-500
-            focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800 dark:text-white
-            dark:placeholder-surface-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+          class="block max-h-40 w-full resize-none overflow-y-auto rounded-lg border-surface-300
+            bg-surface-100 p-2.5 text-sm text-surface-900 outline-none focus:border-primary-500
+            focus:ring-primary-500"
           placeholder="Your message..."
           @keydown.enter="handleEnterKey"
         />

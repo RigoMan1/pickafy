@@ -1,18 +1,18 @@
 <script setup lang="ts">
-const drawer = ref(false);
+// const drawer = ref(false);
 </script>
 
 <template>
   <v-app class="bg-[#F0F0F2]">
     <v-app-bar class="bg-[#F0F0F2]">
       <div class="container flex h-full items-center px-2 md:px-0">
-        <v-button
+        <!-- <v-button
           variant="text"
           color="dark"
           icon="i-mdi-menu"
           class="lg:hidden"
           @click="drawer = !drawer"
-        />
+        /> -->
         <nuxt-link
           class="mx-auto flex items-center gap-2 lg:mx-0"
           to="/"
@@ -29,16 +29,14 @@ const drawer = ref(false);
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       v-model="drawer"
       temporary
       width="300"
       class="bg-surface-100 p-4"
     >
-      <div>
-        <panel-templates />
-      </div>
-    </v-navigation-drawer>
+      <div></div>
+    </v-navigation-drawer> -->
 
     <v-main>
       <nuxt-page />

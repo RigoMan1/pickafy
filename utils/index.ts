@@ -3,6 +3,9 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'website-builder-platforms',
     name: 'Website Builder Platforms',
+    description: 'Compare top platforms for building websites with ease and flexibility',
+    image:
+      'https://images.ctfassets.net/lzny33ho1g45/GasoubjSRu8U1KKRssuSL/9e5938fba367462b0c7ca2e3d5b24f59/best-website-builders-for-small-business.jpg?w=1520&fm=jpg&q=31&fit=thumb&h=760',
     criteria: [
       {
         id: 'price',
@@ -307,6 +310,9 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'house-hunting',
     name: 'House / Apartment Hunting',
+    description: 'Find the best place to live based on rent, commute, safety, and more',
+    image:
+      'https://images1.apartments.com/i2/_0v7g0gPQA-0mpX7OT9Von2Q_OgWOUOAU3_ZwcirtzA/117/image.jpg',
     criteria: [
       {
         id: 'id-cost',
@@ -371,6 +377,9 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'gyms',
     name: 'Top Gyms',
+    description: 'Evaluate leading gyms by cost, classes, equipment, and overall vibe',
+    image:
+      'https://cdn.prod.website-files.com/5de2db6d3719a1e2f3e4454c/659ca8b0f133fe043f1d7513_Best%20Gym%20Logos%20image.webp',
     criteria: [
       {
         id: 'id-cost',
@@ -564,6 +573,10 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'car-hunting',
     name: 'Car Hunting',
+    description:
+      'Compare cars by price, reliability, fuel efficiency, safety, and features',
+    image:
+      'https://i.vimeocdn.com/video/731556395-dbcd418ae184e1e3fd59a8463590b6bde743d9828b3c648c8483321a32794803-d?f=webp',
     criteria: [
       {
         id: 'id-price',
@@ -636,6 +649,10 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'house-plants',
     name: 'House Plants',
+    description:
+      'Choose the right indoor plants based on care level, appearance, and safety',
+    image:
+      'https://images.thdstatic.com/productImages/403163c0-b92c-478f-aa54-408652d85e9c/svn/altman-plants-perennials-0881361-64_1000.jpg',
     criteria: [
       {
         id: 'id-look',
@@ -701,6 +718,10 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'shoes',
     name: 'Shoes',
+    description: 'Compare shoes by comfort, durability, support, and performance metrics',
+
+    image:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP2FWyqt6VxbITkfUAp9PhPEaGxDIlH--7QQ&s',
     criteria: [
       {
         id: 'id-price',
@@ -788,6 +809,11 @@ export const sampleTemplates: TemplateData[] = [
   {
     id: 'headless-cms-comparison',
     name: 'Headless CMS Platform Comparison',
+    description:
+      'Evaluate headless CMS options for developers and editors across key features',
+
+    image:
+      'https://htmlburger.com/blog/wp-content/uploads/2023/03/The-Top-10-Headless-CMS-Platforms-of-2023-header.jpg',
     criteria: [
       {
         id: 'price',
