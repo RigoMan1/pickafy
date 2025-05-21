@@ -31,7 +31,9 @@ const missingRequirements = computed(() => {
         Start by listing the items you're deciding between. These could be products,
         services, ideas, or anything you're comparing.
       </header-section>
-      <div class="mt-4 sm:mt-0">
+      <div class="mt-4 flex gap-2 sm:mt-0">
+        <ai-dialog class="absolute h-[300px] w-[300px]" />
+
         <choice-dialog mode="add" />
       </div>
     </div>

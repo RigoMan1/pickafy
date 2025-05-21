@@ -21,4 +21,9 @@ export default defineNuxtConfig({
     configPath: './tailwind.config.ts',
     cssPath: ['~/assets/css/tailwind.css', { injectPosition: 'last' }],
   },
+  runtimeConfig: {
+    chatgpt: {
+      apiKey: process.env.OPENAI_API_KEY,
+    },
+  },
 });
